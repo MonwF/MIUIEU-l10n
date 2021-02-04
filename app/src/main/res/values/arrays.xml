@@ -1,4 +1,12 @@
 <resources>
+	<string-array name="xposed_scopes" >
+		<item>android</item>
+		<item>com.android.systemui</item>
+		<item>com.miui.securitycenter</item>
+		<item>com.android.settings</item>
+		<item>com.miui.packageinstaller</item>
+		<item>com.miui.home</item>
+	</string-array>
 	<string-array name="global_actions_launcher">
 		<item>@string/array_global_actions_none</item>
 		<item>@string/array_global_actions_notif</item>

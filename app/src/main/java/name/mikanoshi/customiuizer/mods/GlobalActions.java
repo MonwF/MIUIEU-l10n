@@ -723,13 +723,6 @@ public class GlobalActions {
 
 		if (app == null || !Helpers.getSharedBoolPref(app, "pref_key_miuizer_ownrepo", false)) return;
 
-		Helpers.hookAllMethods("de.robv.android.xposed.installer.XposedApp", lpparam.classLoader, "onCreate", new MethodHook() {
-			@Override
-			protected void after(MethodHookParam param) throws Throwable {
-				useOwnRepo = Helpers.getSharedBoolPref((Application)param.thisObject, "pref_key_miuizer_ownrepo", false);
-			}
-		});
-
 		Helpers.hookAllMethods("org.meowcat.edxposed.manager.StatusInstallerFragment", lpparam.classLoader, "onCreateView", new MethodHook() {
 			@Override
 			protected void after(MethodHookParam param) throws Throwable {

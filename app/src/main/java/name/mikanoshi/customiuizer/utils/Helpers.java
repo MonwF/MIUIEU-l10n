@@ -331,17 +331,12 @@ public class Helpers {
 		PackageManager pm = context.getPackageManager();
 
 		try {
+			pm.getPackageInfo("io.github.lsposed.manager", PackageManager.GET_ACTIVITIES);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {}
+
+		try {
 			pm.getPackageInfo("org.meowcat.edxposed.manager", PackageManager.GET_ACTIVITIES);
-			return true;
-		} catch (PackageManager.NameNotFoundException e) {}
-
-		try {
-			pm.getPackageInfo("com.solohsu.android.edxp.manager", PackageManager.GET_ACTIVITIES);
-			return true;
-		} catch (PackageManager.NameNotFoundException e) {}
-
-		try {
-			pm.getPackageInfo("de.robv.android.xposed.installer", PackageManager.GET_ACTIVITIES);
 			return true;
 		} catch (PackageManager.NameNotFoundException e) {}
 
@@ -355,16 +350,13 @@ public class Helpers {
 
 	public static boolean areXposedResourceHooksDisabled() {
 		File d1 = new File("/data/user_de/0/org.meowcat.edxposed.manager/conf/disable_resources");
-		File d2 = new File("/data/user_de/0/com.solohsu.android.edxp.manager/conf/disable_resources");
-		File d3 = new File("/data/user_de/0/de.robv.android.xposed.installer/conf/disable_resources");
-		return d1.exists() || d2.exists() || d3.exists();
+		File d3 = new File("/data/user_de/0/io.github.lsposed.manager/conf/disable_resources");
+		return d1.exists() || d3.exists();
 	}
 
 	public static boolean areXposedBlacklistsEnabled() {
 		File d1 = new File("/data/user_de/0/org.meowcat.edxposed.manager/conf/blackwhitelist");
-		File d2 = new File("/data/user_de/0/com.solohsu.android.edxp.manager/conf/blackwhitelist");
-		File d3 = new File("/data/user_de/0/de.robv.android.xposed.installer/conf/blackwhitelist");
-		return d1.exists() || d2.exists() || d3.exists();
+		return d1.exists();
 	}
 
 	public static boolean openXposedApp(Context context) {
@@ -374,26 +366,19 @@ public class Helpers {
 			context.startActivity(intent);
 			return true;
 		} catch (Throwable e1) {
-			intent = context.getPackageManager().getLaunchIntentForPackage("com.solohsu.android.edxp.manager");
+			intent = context.getPackageManager().getLaunchIntentForPackage("io.github.lsposed.manager");
 			if (intent != null) intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 			try {
 				context.startActivity(intent);
 				return true;
 			} catch (Throwable e2) {
-				intent = context.getPackageManager().getLaunchIntentForPackage("de.robv.android.xposed.installer");
+				intent = context.getPackageManager().getLaunchIntentForPackage("me.weishu.exp");
 				if (intent != null) intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 				try {
 					context.startActivity(intent);
 					return true;
-				} catch (Throwable e3) {
-					intent = context.getPackageManager().getLaunchIntentForPackage("me.weishu.exp");
-					if (intent != null) intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-					try {
-						context.startActivity(intent);
-						return true;
-					} catch (Throwable e4) {
-						Toast.makeText(context, R.string.xposed_not_found, Toast.LENGTH_LONG).show();
-					}
+				} catch (Throwable e4) {
+					Toast.makeText(context, R.string.xposed_not_found, Toast.LENGTH_LONG).show();
 				}
 			}
 			return false;
@@ -458,20 +443,12 @@ public class Helpers {
 		} catch (Throwable ignore) {}
 
 		try {
-			pm.getPackageInfo("com.solohsu.android.edxp.manager", PackageManager.GET_ACTIVITIES);
-			baseDir = "/data/user_de/0/com.solohsu.android.edxp.manager/";
+			pm.getPackageInfo("io.github.lsposed.manager", PackageManager.GET_ACTIVITIES);
+			baseDir = "/data/user_de/0/io.github.lsposed.manager";
 			file = new File(baseDir + "log/all.log");
 			if (file.exists()) return baseDir + "log/all.log";
 			file = new File(baseDir + "log/error.log");
 			if (file.exists()) return baseDir + "log/error.log";
-		} catch (Throwable ignore) {}
-
-		try {
-			pm.getPackageInfo("de.robv.android.xposed.installer", PackageManager.GET_ACTIVITIES);
-			baseDir = "/data/user_de/0/de.robv.android.xposed.installer/";
-			file = new File(baseDir + "log/error.log");
-			if (file.exists()) return baseDir + "log/error.log";
-			baseDir = null;
 		} catch (Throwable ignore) {}
 
 		if (baseDir == null)

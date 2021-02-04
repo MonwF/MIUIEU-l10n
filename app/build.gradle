@@ -16,14 +16,14 @@ android {
             v2SigningEnabled false
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "name.mikanoshi.customiuizer"
-        minSdkVersion 24
+        minSdkVersion 25
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 27
-        versionCode 66
-        versionName "3.1.4"
+        targetSdkVersion 29
+        versionCode 67
+        versionName "3.2.0"
         signingConfig signingConfigs.dev
         //resConfigs 'ru-rRU', 'uk-rUK', 'zh-rCN', 'pt-rBR', 'de', 'es', 'it', 'tr';
     }
