@@ -6,6 +6,8 @@
 		<item>com.android.settings</item>
 		<item>com.miui.packageinstaller</item>
 		<item>com.miui.home</item>
+		<item>com.android.server.telecom</item>
+		<item>com.android.incallui</item>
 	</string-array>
 	<string-array name="global_actions_launcher">
 		<item>@string/array_global_actions_none</item>
