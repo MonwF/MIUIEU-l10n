@@ -1,215 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="name.mikanoshi.customiuizer">
+	package="name.monwf.miuil10n">
 
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-	<uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
-	<uses-permission android:name="android.permission.MODIFY_DAY_NIGHT_MODE" />
-	<uses-permission android:name="android.permission.SET_ANIMATION_SCALE" />
-	<uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
-	<uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 	<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-	<uses-permission android:name="android.permission.MANAGE_USB" />
 	<uses-permission android:name="android.permission.READ_LOGS" />
 	<uses-permission android:name="android.permission.DUMP" />
 
 	<uses-permission android:name="miui.permission.READ_LOGS" />
 	<uses-permission android:name="miui.permission.DUMP_CACHED_LOG" />
 
-	<uses-permission android:name="com.miui.securitycenter.permission.ACCESS_SECURITY_CENTER_PROVIDER" />
-
 	<application
 		android:allowBackup="false"
-		android:backupAgent="name.mikanoshi.customiuizer.utils.PrefBackupAgent"
 		android:hardwareAccelerated="true"
 		android:icon="@mipmap/ic_launcher"
 		android:roundIcon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
-		android:name=".MainApplication"
 		android:usesCleartextTraffic="true"
-		android:requestLegacyExternalStorage="true"
 		tools:ignore="GoogleAppIndexingWarning"
-		tools:targetApi="q">
-
-		<activity
-			android:name=".MainActivity"
-			android:label="@string/title_activity_main"
-			android:theme="@style/AppTheme"
-			android:launchMode="singleTop"
-			android:alwaysRetainTaskState="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
-				<category android:name="de.robv.android.xposed.category.MODULE_SETTINGS"/>
-			</intent-filter>
-		</activity>
-
-		<activity-alias
-			android:label="@string/title_activity_main"
-			android:name=".GateWayLauncher"
-			android:targetActivity=".MainActivity"
-			android:taskAffinity="com.android.settings.customiuizer"
-			android:allowTaskReparenting="true"
-			android:clearTaskOnLaunch="true"
-			android:enabled="true"
-			android:excludeFromRecents="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-			<meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
-		</activity-alias>
-
-		<activity-alias
-			android:label="@string/title_activity_main"
-			android:name=".GateWaySettings"
-			android:targetActivity=".MainActivity"
-			android:enabled="true"
-			android:excludeFromRecents="true">
-			<meta-data android:name="from.settings" android:value="true" />
-		</activity-alias>
-
-		<activity
-			android:name=".Credentials"
-			android:label="@string/credentials_unlock"
-			android:theme="@style/Invisible"
-			android:icon="@drawable/ic_credentials"
-			android:launchMode="singleInstance"
-			android:excludeFromRecents="true"
-			android:exported="true"
-			android:finishOnTaskLaunch="true"
-			android:configChanges="keyboardHidden|orientation|screenSize">
-		</activity>
-
-		<activity-alias
-			android:name=".CredentialsLauncher"
-			android:targetActivity=".Credentials"
-			android:enabled="false"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity-alias>
-
-		<activity
-			android:name=".CredentialsShortcut"
-			android:label="@string/credentials_unlock"
-			android:theme="@style/Invisible"
-			android:icon="@drawable/ic_credentials"
-			android:launchMode="singleInstance"
-			android:finishOnTaskLaunch="true"
-			android:taskAffinity=""
-			android:excludeFromRecents="true"
-			android:exported="true">
-			<intent-filter android:label="@string/credentials_unlock">
-				<action android:name="android.intent.action.CREATE_SHORTCUT"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name=".tasker.UnlockSettings"
-			android:exported="true"
-			android:icon="@mipmap/ic_launcher"
-			android:label="@string/system_noscreenlock_scr_title">
-			<intent-filter>
-				<action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name=".SnoozedActivity"
-			android:enabled="false"
-			android:label="@string/title_snoozed"
-			android:theme="@style/AppTheme"
-			android:icon="@mipmap/ic_snooze"
-			android:taskAffinity="name.mikanoshi.customiuizer.snoozed"
-			android:launchMode="singleTop"
-			android:allowTaskReparenting="false">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-
-		<service
-			android:name=".qs.AutoRotateService"
-			android:icon="@drawable/ic_qs_autorotate_disabled"
-			android:label="@string/qs_toggle_autorotate"
-			android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-			android:enabled="false">
-			<intent-filter>
-				<action android:name="android.service.quicksettings.action.QS_TILE" />
-			</intent-filter>
-		</service>
-
-		<service
-			android:name=".qs.DarkModeService"
-			android:icon="@drawable/ic_qs_darkmode_disabled"
-			android:label="@string/qs_toggle_darkmode"
-			android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-			android:enabled="false">
-			<intent-filter>
-				<action android:name="android.service.quicksettings.action.QS_TILE" />
-			</intent-filter>
-		</service>
-
-		<activity
-			android:name=".crashreport.Dialog"
-			android:theme="@style/Invisible"
-			android:launchMode="singleTask"
-			android:excludeFromRecents="true"
-			android:finishOnTaskLaunch="true"
-			android:configChanges="keyboardHidden|orientation|screenSize" />
-
-		<provider
-			android:name=".SharedPrefsProvider"
-			android:authorities="name.mikanoshi.customiuizer.provider.sharedprefs"
-			android:grantUriPermissions="true"
-			android:exported="true"
-			android:directBootAware="true"
-			tools:ignore="ExportedContentProvider" />
-
-		<receiver
-			android:name=".utils.HelperReceiver"
-			android:exported="true"
-			android:enabled="true"
-			android:directBootAware="true">
-			<intent-filter>
-				<action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-				<action android:name="name.mikanoshi.customiuizer.SAVEEXCEPTION" />
-			</intent-filter>
-		</receiver>
-
-		<receiver
-			android:name=".tasker.UnlockReceiver"
-			android:exported="true"
-			tools:ignore="ExportedReceiver">
-			<intent-filter>
-				<action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
-			</intent-filter>
-		</receiver>
+		tools:targetApi="r">
 
 		<meta-data android:name="xposedmodule" android:value="true" />
 		<meta-data android:name="xposedminversion" android:value="82" />
-		<meta-data android:name="xposeddescription" android:value="Customize MIUI to your liking" />
+		<meta-data android:name="xposeddescription" android:value="miui eu's l10n by mocking miui.os.Build->IS_INTERNATIONAL_BUILD" />
 		<meta-data android:name="xposedsharedprefs" android:value="true" />
 		<meta-data android:name="xposedscope" android:resource="@array/xposed_scopes" />
-		<meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIRIa0lKCzoQ_qe_xfqaQCC4EQhwk3CWeRwzFrww" />
 	</application>
 
 </manifest>
