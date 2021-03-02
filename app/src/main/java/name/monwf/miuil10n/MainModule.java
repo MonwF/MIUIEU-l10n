@@ -1,12 +1,12 @@
 package name.monwf.miuil10n;
 
-import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 
 import de.robv.android.xposed.IXposedHookZygoteInit;
-import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
+import name.monwf.miuil10n.utils.Helpers;
 import name.monwf.miuil10n.utils.ResourceHooks;
 
 
@@ -28,11 +28,15 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 				|| pkg.equals("com.miui.yellowpage")
 		) {
 			Class<?> classBuild = XposedHelpers.findClass("miui.os.Build", lpparam.classLoader);
-			XposedHelpers.setStaticBooleanField(classBuild, "IS_INTERNATIONAL_BUILD",false);
+			XposedHelpers.setStaticBooleanField(classBuild, "IS_INTERNATIONAL_BUILD", false);
+			XposedHelpers.setStaticBooleanField(classBuild, "IS_GLOBAL_BUILD", false);
 		}
 		else if (pkg.equals("com.android.calendar")) {
 			resHooks.setObjectReplacement(pkg, "bool", "is_greater_china", true);
 			resHooks.setObjectReplacement(pkg, "bool", "is_mainland_china", true);
+		}
+		if (pkg.equals("com.android.mms")) {
+			Helpers.findAndHookMethodSilently("com.miui.smsextra.sdk.SDKManager", lpparam.classLoader, "supportClassify", XC_MethodReplacement.returnConstant(true));
 		}
 	}
 }
