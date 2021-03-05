@@ -6,5 +6,6 @@
 		<item>com.android.calendar</item>
 		<item>com.android.deskclock</item>
 		<item>com.miui.yellowpage</item>
+		<item>com.miui.securitycenter</item>
 	</string-array>
 </resources>
