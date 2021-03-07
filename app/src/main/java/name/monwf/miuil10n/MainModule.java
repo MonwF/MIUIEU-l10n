@@ -25,6 +25,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 				|| pkg.equals("com.miui.weather2")
 				|| pkg.equals("com.android.mms")
 				|| pkg.equals("com.android.deskclock")
+				|| pkg.equals("com.android.thememanager")
 				|| pkg.equals("com.miui.yellowpage")
 				|| pkg.equals("com.miui.securitycenter")
 		) {

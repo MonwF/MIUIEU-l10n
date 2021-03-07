@@ -7,5 +7,6 @@
 		<item>com.android.deskclock</item>
 		<item>com.miui.yellowpage</item>
 		<item>com.miui.securitycenter</item>
+		<item>com.android.thememanager</item>
 	</string-array>
 </resources>
