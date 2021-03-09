@@ -28,6 +28,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 				|| pkg.equals("com.android.thememanager")
 				|| pkg.equals("com.miui.yellowpage")
 				|| pkg.equals("com.miui.securitycenter")
+				|| pkg.equals("com.miui.personalassistant")
 		) {
 			Class<?> classBuild = XposedHelpers.findClass("miui.os.Build", lpparam.classLoader);
 			XposedHelpers.setStaticBooleanField(classBuild, "IS_INTERNATIONAL_BUILD", false);
