@@ -44,8 +44,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 		}
 		else if (pkg.equals("com.android.thememanager")) {
 			Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "getAdInfo", boolean.class, XC_MethodReplacement.returnConstant(null));
-			Helpers.findAndHookMethodSilently("com.android.thememanager.v9.model.UICard", lpparam.classLoader, "getAdInfo", boolean.class, XC_MethodReplacement.returnConstant(null));
-			Helpers.findAndHookMethodSilently("com.android.thememanager.router.recommend.entity.UICard", lpparam.classLoader, "getAdInfo", boolean.class, XC_MethodReplacement.returnConstant(null));
+			Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "checkAndGetAdInfo", String.class, boolean.class, XC_MethodReplacement.returnConstant(null));
 		}
 	}
 }

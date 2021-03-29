@@ -7,7 +7,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     signingConfigs {
         dev {
-            storeFile file(keystoreProperties['storeFile'])
+            storeFile file(rootProject.file("../" + keystoreProperties['storeFile']))
             storePassword keystoreProperties['storePassword']
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
