@@ -1,11 +1,14 @@
 package name.monwf.miuil10n;
 
+import android.content.Context;
+
 import de.robv.android.xposed.IXposedHookLoadPackage;
 
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
+import static de.robv.android.xposed.XposedHelpers.findClass;
 import name.monwf.miuil10n.utils.Helpers;
 import name.monwf.miuil10n.utils.ResourceHooks;
 
@@ -21,9 +24,22 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 	public void handleLoadPackage(final LoadPackageParam lpparam) {
 		String pkg = lpparam.packageName;
 
+		Helpers.MethodHook statInitHook = new Helpers.MethodHook() {
+			@Override
+			protected void after(MethodHookParam param) throws Throwable {
+				XposedHelpers.callStaticMethod(findClass("com.xiaomi.stat.MiStat", lpparam.classLoader), "setStatisticEnabled", false);
+				Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "setStatisticEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
+			}
+		};
+
+		Helpers.findAndHookMethodSilently("com.xiaomi.onetrack.OneTrack", lpparam.classLoader, "isDisable", XC_MethodReplacement.returnConstant(true));
+		Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "initialize", Context.class, String.class, String.class, boolean.class, String.class, statInitHook);
+		Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "initialize", Context.class, String.class, String.class, boolean.class, statInitHook);
+
 		if (pkg.equals("com.android.contacts")
 				|| pkg.equals("com.miui.weather2")
 				|| pkg.equals("com.android.mms")
+				|| pkg.equals("com.android.systemui")
 				|| pkg.equals("com.android.deskclock")
 				|| pkg.equals("com.android.thememanager")
 				|| pkg.equals("com.miui.yellowpage")

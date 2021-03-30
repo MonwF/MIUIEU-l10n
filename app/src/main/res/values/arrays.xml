@@ -8,6 +8,7 @@
 		<item>com.miui.yellowpage</item>
 		<item>com.miui.securitycenter</item>
 		<item>com.android.thememanager</item>
+		<item>com.android.systemui</item>
 		<item>com.miui.personalassistant</item>
 		<item>com.miui.contentextension</item>
 	</string-array>
