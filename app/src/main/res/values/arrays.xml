@@ -1,5 +1,6 @@
 <resources>
 	<string-array name="xposed_scopes" >
+		<item>android</item>
 		<item>com.android.contacts</item>
 		<item>com.miui.weather2</item>
 		<item>com.android.mms</item>

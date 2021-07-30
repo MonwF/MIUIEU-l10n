@@ -20,13 +20,6 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 
     public void initZygote(StartupParam startParam) {
         resHooks = new ResourceHooks();
-//        Helpers.findAndHookMethod("android.provider.Settings.Global", null, "getString", ContentResolver.class, String.class, new Helpers.MethodHook() {
-//            @Override
-//            protected void after(MethodHookParam param) throws Throwable {
-//                if (!"passport_ad_status".equals(param.args[1])) return;
-//                param.setResult("OFF");
-//            }
-//        });
     }
 
     @Override
@@ -36,10 +29,8 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
         Helpers.MethodHook statInitHook = new Helpers.MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
-//                Context mContext = (Context)XposedHelpers.getObjectField(param.thisObject, "mContext");
-//                Settings.Global.putString(mContext.getContentResolver(), "passport_ad_status", "OFF");
-                XposedHelpers.callStaticMethod(findClass("com.xiaomi.stat.MiStat", lpparam.classLoader), "setStatisticEnabled", false);
-                Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "setStatisticEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
+            XposedHelpers.callStaticMethod(findClass("com.xiaomi.stat.MiStat", lpparam.classLoader), "setStatisticEnabled", false);
+            Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "setStatisticEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
             }
         };
         if (!pkg.equals("android")) {
@@ -58,7 +49,6 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
                 || pkg.equals("com.android.deskclock")
                 || pkg.equals("com.android.thememanager")
                 || pkg.equals("com.miui.yellowpage")
-                || pkg.equals("com.miui.securitycenter")
                 || pkg.equals("com.miui.personalassistant")
         ) {
             Class<?> classBuild = XposedHelpers.findClass("miui.os.Build", lpparam.classLoader);
@@ -73,6 +63,8 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethodSilently("com.miui.smsextra.sdk.SDKManager", lpparam.classLoader, "supportClassify", XC_MethodReplacement.returnConstant(true));
         }
         else if (pkg.equals("com.android.thememanager")) {
+//            Context mContext = (Context)XposedHelpers.getObjectField(param.thisObject, "mContext");
+//            Settings.Global.putString(mContext.getContentResolver(), "passport_ad_status", "OFF");
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "getAdInfo", boolean.class, XC_MethodReplacement.returnConstant(null));
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "checkAndGetAdInfo", String.class, boolean.class, XC_MethodReplacement.returnConstant(null));
         }
