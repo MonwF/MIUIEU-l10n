@@ -301,10 +301,16 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
         MethodHook mobileIconHook = new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
+                boolean isWifi = (boolean) XposedHelpers.getObjectField(param.args[0], "wifiAvailable");
                 ImageView hdIcon = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mVolte");
                 hdIcon.setVisibility(View.GONE);
                 hdIcon = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mSmallHd");
-                hdIcon.setVisibility(View.VISIBLE);
+                if (isWifi) {
+                    hdIcon.setVisibility(View.VISIBLE);
+                }
+                else {
+                    hdIcon.setVisibility(View.GONE);
+                }
             }
         };
         Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.StatusBarMobileView", lpparam.classLoader, "initViewState",
