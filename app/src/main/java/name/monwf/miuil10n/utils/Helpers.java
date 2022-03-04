@@ -37,46 +37,8 @@ public class Helpers {
 	public static final String logFile = "xposed_log";
 	public static SharedPreferences prefs = null;
 
-	public static boolean is11() {
-		return SystemProperties.getInt("ro.miui.ui.version.code", 8) >= 9;
-	}
-
 	public static boolean is12() {
-		return SystemProperties.getInt("ro.miui.ui.version.code", 9) >= 10;
-	}
-
-	public static boolean isPiePlus() {
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
-	}
-
-	public static boolean isQPlus() {
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
-	}
-
-	public static String getNewEdXposedPath() {
-		File[] files = new File("/data/misc").listFiles();
-		String edxpPath = null;
-		if (files != null && files.length > 0)
-		for (File file: files)
-		if (file.getName().startsWith("edxp_")) {
-			edxpPath = file.getName();
-			break;
-		}
-		return edxpPath;
-	}
-
-
-	public static boolean containsStringPair(Set<String> hayStack, String needle) {
-		boolean res = false;
-		if (hayStack == null || hayStack.size() == 0) return false;
-		for (String pair: hayStack) {
-			String[] needles = pair.split("\\|");
-			if (needles[0].equalsIgnoreCase(needle)) {
-				res = true;
-				break;
-			}
-		}
-		return res;
+		return true;
 	}
 
 	public static synchronized Context getLocaleContext(Context context) throws Throwable {
