@@ -32,12 +32,7 @@ public class Helpers {
 	@SuppressLint("StaticFieldLeak")
 	public static Context mModuleContext = null;
 	public static final String modulePkg = "name.monwf.miuil10n";
-	public static final String logFile = "xposed_log";
 	public static SharedPreferences prefs = null;
-
-	public static boolean is12() {
-		return true;
-	}
 
 	public static synchronized Context getLocaleContext(Context context) throws Throwable {
 		if (prefs != null) {
@@ -101,10 +96,6 @@ public class Helpers {
 
 		public MethodHook() {
 			super();
-		}
-
-		public MethodHook(int priority) {
-			super(priority);
 		}
 
 		@Override

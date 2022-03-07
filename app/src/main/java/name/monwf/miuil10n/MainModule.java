@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,7 +65,6 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
 
         if (pkg.equals("com.android.contacts")
                 || pkg.equals("com.miui.weather2")
-                || pkg.equals("com.android.mms")
                 || pkg.equals("com.android.deskclock")
                 || pkg.equals("com.android.thememanager")
                 || pkg.equals("com.miui.yellowpage")
@@ -79,9 +79,6 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             resHooks.setObjectReplacement(pkg, "bool", "is_greater_china", true);
             resHooks.setObjectReplacement(pkg, "bool", "is_mainland_china", true);
         }
-        else if (pkg.equals("com.android.mms")) {
-            Helpers.findAndHookMethodSilently("com.miui.smsextra.sdk.SDKManager", lpparam.classLoader, "supportClassify", XC_MethodReplacement.returnConstant(true));
-        }
         else if (pkg.equals("com.android.thememanager")) {
 //            Context mContext = (Context)XposedHelpers.getObjectField(param.thisObject, "mContext");
 //            Settings.Global.putString(mContext.getContentResolver(), "passport_ad_status", "OFF");
@@ -89,11 +86,14 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "checkAndGetAdInfo", String.class, boolean.class, XC_MethodReplacement.returnConstant(null));
         }
         else if (pkg.equals("com.miui.securitycenter")) {
-            XposedHelpers.findAndHookMethod("com.miui.permcenter.privacymanager.i", lpparam.classLoader, "l", XC_MethodReplacement.returnConstant(2));
+            Helpers.findAndHookMethod("com.miui.permcenter.privacymanager.i", lpparam.classLoader, "l", XC_MethodReplacement.returnConstant(2));
             this.AppInfoHook(lpparam);
         }
+        else if (pkg.equals("com.android.mms")) {
+            Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult", Context.class, String.class, String.class, XC_MethodReplacement.returnConstant(-1));
+        }
         else if (pkg.equals("android")) {
-            XposedHelpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceInjector", lpparam.classLoader, "isAllowLocalNotification", XC_MethodReplacement.returnConstant(true));
+            Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceInjector", lpparam.classLoader, "isAllowLocalNotification", XC_MethodReplacement.returnConstant(true));
         }
         else if (pkg.equals("com.android.systemui")) {
             this.MobileIconStateHook(lpparam);
@@ -110,7 +110,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
     private void LauncherHook(LoadPackageParam lpparam) {
         MethodHook hook = new MethodHook() {
             @Override
-            protected void before(final XC_MethodHook.MethodHookParam param) throws Throwable {
+            protected void before(final MethodHookParam param) throws Throwable {
                 XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mLauncher"), "hideAppView");
             }
         };
