@@ -20,8 +20,8 @@ android {
         applicationId "name.monwf.miuil10n"
         minSdkVersion 28
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 30
-        versionCode 6
+        targetSdkVersion 31
+        versionCode 7
         versionName "1.1.0"
         signingConfig signingConfigs.dev
         //resConfigs 'ru-rRU', 'uk-rUK', 'zh-rCN', 'pt-rBR', 'de', 'es', 'it', 'tr';
@@ -63,7 +63,7 @@ dependencies {
     //noinspection DifferentStdlibGradleVersion
 //    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32'
     compileOnly 'de.robv.android.xposed:api:82'
-    compileOnly files('lib/miui.jar')
-    compileOnly files('lib/miuisystem.jar')
-    compileOnly files('lib/framework.jar')
+//    compileOnly files('lib/miui.jar')
+//    compileOnly files('lib/miuisystem.jar')
+//    compileOnly files('lib/framework.jar')
 }

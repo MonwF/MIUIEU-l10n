@@ -19,13 +19,11 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 import java.util.Locale;
-import java.util.Set;
 
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
-import miui.os.SystemProperties;
 
 
 @SuppressWarnings("WeakerAccess")
