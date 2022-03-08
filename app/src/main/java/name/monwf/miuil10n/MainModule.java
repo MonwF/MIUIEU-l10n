@@ -64,6 +64,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
         }
 
         if (pkg.equals("com.android.contacts")
+                || pkg.equals("com.android.incallui")
                 || pkg.equals("com.miui.weather2")
                 || pkg.equals("com.android.deskclock")
                 || pkg.equals("com.android.thememanager")
