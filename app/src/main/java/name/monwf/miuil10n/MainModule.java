@@ -1,6 +1,8 @@
 package name.monwf.miuil10n;
 
 import android.app.Activity;
+import android.app.AppOpsManager;
+import android.app.Notification;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -91,10 +93,12 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             this.AppInfoHook(lpparam);
         }
         else if (pkg.equals("com.android.mms")) {
-            Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult", Context.class, String.class, String.class, XC_MethodReplacement.returnConstant(-1));
+            Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult",
+                    Context.class, String.class, String.class, XC_MethodReplacement.returnConstant(0));
         }
         else if (pkg.equals("android")) {
-            Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceInjector", lpparam.classLoader, "isAllowLocalNotification", XC_MethodReplacement.returnConstant(true));
+            Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceImpl", lpparam.classLoader, "isDeniedLocalNotification",
+                    AppOpsManager.class, Notification.class, int.class, String.class, XC_MethodReplacement.returnConstant(false));
         }
         else if (pkg.equals("com.android.systemui")) {
             this.MobileIconStateHook(lpparam);
