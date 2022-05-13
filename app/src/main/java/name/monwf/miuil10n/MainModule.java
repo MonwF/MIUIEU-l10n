@@ -318,11 +318,23 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
                 }
             }
         };
+        MethodHook normalIconHook = new MethodHook() {
+            @Override
+            protected void before(MethodHookParam param) throws Throwable {
+                String iconName = (String) param.args[0];
+                if ("nfc".equals(iconName)) {
+                    param.args[1] = false;
+                }
+            }
+        };
         Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.StatusBarMobileView", lpparam.classLoader, "initViewState",
                 "com.android.systemui.statusbar.phone.StatusBarSignalPolicy$MobileIconState", mobileIconHook
         );
         Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.StatusBarMobileView", lpparam.classLoader, "updateState",
                 "com.android.systemui.statusbar.phone.StatusBarSignalPolicy$MobileIconState", mobileIconHook
+        );
+        Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.phone.StatusBarIconControllerImpl", lpparam.classLoader, "setIconVisibility",
+                String.class, boolean.class, normalIconHook
         );
     }
 }
