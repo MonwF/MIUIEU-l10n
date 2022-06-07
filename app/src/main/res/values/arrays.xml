@@ -12,8 +12,6 @@
 		<item>com.android.systemui</item>
 		<item>com.miui.personalassistant</item>
 		<item>com.miui.contentextension</item>
-		<item>com.miui.home</item>
-		<item>com.miui.packageinstaller</item>
 		<item>com.android.systemui</item>
 		<item>com.android.incallui</item>
 	</string-array>
