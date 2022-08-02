@@ -5,8 +5,6 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import android.app.AppOpsManager;
 import android.app.Notification;
 import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
@@ -69,7 +67,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "checkAndGetAdInfo", String.class, boolean.class, XC_MethodReplacement.returnConstant(null));
         }
         else if (pkg.equals("com.miui.securitycenter")) {
-            Helpers.findAndHookMethod("com.miui.permcenter.privacymanager.InterceptPermissionFragment", lpparam.classLoader, "k", XC_MethodReplacement.returnConstant(2));
+            Helpers.findAndHookMethod("com.miui.permcenter.privacymanager.InterceptPermissionFragment", lpparam.classLoader, "l", XC_MethodReplacement.returnConstant(2));
         }
         else if (pkg.equals("com.android.mms")) {
             Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult",
@@ -79,32 +77,5 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceImpl", lpparam.classLoader, "isDeniedLocalNotification",
                     AppOpsManager.class, Notification.class, int.class, String.class, XC_MethodReplacement.returnConstant(false));
         }
-        else if (pkg.equals("com.android.systemui")) {
-            this.MobileIconStateHook(lpparam);
-        }
-    }
-
-    private void MobileIconStateHook(LoadPackageParam lpparam) {
-        MethodHook mobileIconHook = new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) throws Throwable {
-                boolean isWifi = (boolean) XposedHelpers.getObjectField(param.args[0], "wifiAvailable");
-                ImageView hdIcon = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mVolte");
-                hdIcon.setVisibility(View.GONE);
-                hdIcon = (ImageView) XposedHelpers.getObjectField(param.thisObject, "mSmallHd");
-                if (isWifi) {
-                    hdIcon.setVisibility(View.VISIBLE);
-                }
-                else {
-                    hdIcon.setVisibility(View.GONE);
-                }
-            }
-        };
-        Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.StatusBarMobileView", lpparam.classLoader, "initViewState",
-                "com.android.systemui.statusbar.phone.StatusBarSignalPolicy$MobileIconState", mobileIconHook
-        );
-        Helpers.findAndHookMethodSilently("com.android.systemui.statusbar.StatusBarMobileView", lpparam.classLoader, "updateState",
-                "com.android.systemui.statusbar.phone.StatusBarSignalPolicy$MobileIconState", mobileIconHook
-        );
     }
 }
