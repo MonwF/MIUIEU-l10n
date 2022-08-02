@@ -66,9 +66,6 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "getAdInfo", boolean.class, XC_MethodReplacement.returnConstant(null));
             Helpers.findAndHookMethodSilently("com.android.thememanager.basemodule.ad.model.AdInfoResponse", lpparam.classLoader, "checkAndGetAdInfo", String.class, boolean.class, XC_MethodReplacement.returnConstant(null));
         }
-        else if (pkg.equals("com.miui.securitycenter")) {
-            Helpers.findAndHookMethod("com.miui.permcenter.privacymanager.InterceptPermissionFragment", lpparam.classLoader, "l", XC_MethodReplacement.returnConstant(2));
-        }
         else if (pkg.equals("com.android.mms")) {
             Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult",
                     Context.class, String.class, String.class, XC_MethodReplacement.returnConstant(0));
