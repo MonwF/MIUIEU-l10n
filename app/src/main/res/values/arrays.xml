@@ -1,6 +1,5 @@
 <resources>
 	<string-array name="xposed_scopes" >
-		<item>android</item>
 		<item>com.android.contacts</item>
 		<item>com.miui.weather2</item>
 		<item>com.android.mms</item>
@@ -9,10 +8,9 @@
 		<item>com.miui.yellowpage</item>
 		<item>com.miui.securitycenter</item>
 		<item>com.android.thememanager</item>
-		<item>com.android.systemui</item>
 		<item>com.miui.personalassistant</item>
 		<item>com.miui.contentextension</item>
-		<item>com.android.systemui</item>
 		<item>com.android.incallui</item>
+		<item>com.android.settings</item>
 	</string-array>
 </resources>

@@ -2,8 +2,6 @@ package name.monwf.miuil10n;
 
 import static de.robv.android.xposed.XposedHelpers.findClass;
 
-import android.app.AppOpsManager;
-import android.app.Notification;
 import android.content.Context;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -30,8 +28,8 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
         MethodHook statInitHook = new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
-            XposedHelpers.callStaticMethod(findClass("com.xiaomi.stat.MiStat", lpparam.classLoader), "setStatisticEnabled", false);
-            Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "setStatisticEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
+                XposedHelpers.callStaticMethod(findClass("com.xiaomi.stat.MiStat", lpparam.classLoader), "setStatisticEnabled", false);
+                Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "setStatisticEnabled", boolean.class, XC_MethodReplacement.DO_NOTHING);
             }
         };
         if (!pkg.equals("android")) {
@@ -39,7 +37,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "initialize", Context.class, String.class, String.class, boolean.class, statInitHook);
         }
 
-        if (!pkg.equals("com.android.systemui") && !pkg.equals("android")) {
+        if (!pkg.equals("android")) {
             Helpers.findAndHookMethodSilently("com.xiaomi.stat.MiStat", lpparam.classLoader, "initialize", Context.class, String.class, String.class, boolean.class, String.class, statInitHook);
         }
 
@@ -51,6 +49,7 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
                 || pkg.equals("com.miui.yellowpage")
                 || pkg.equals("com.miui.personalassistant")
                 || pkg.equals("com.android.calendar")
+                || pkg.equals("com.android.settings")
         ) {
             Class<?> classBuild = XposedHelpers.findClass("miui.os.Build", lpparam.classLoader);
             XposedHelpers.setStaticBooleanField(classBuild, "IS_INTERNATIONAL_BUILD", false);
@@ -70,9 +69,9 @@ public class MainModule implements IXposedHookZygoteInit, IXposedHookLoadPackage
             Helpers.findAndHookMethod("miui.provider.ExtraTelephony", lpparam.classLoader, "getSmsURLScanResult",
                     Context.class, String.class, String.class, XC_MethodReplacement.returnConstant(0));
         }
-        else if (pkg.equals("android")) {
-            Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceImpl", lpparam.classLoader, "isDeniedLocalNotification",
-                    AppOpsManager.class, Notification.class, int.class, String.class, XC_MethodReplacement.returnConstant(false));
-        }
+//        else if (pkg.equals("android")) {
+//            Helpers.findAndHookMethod("com.android.server.notification.NotificationManagerServiceImpl", lpparam.classLoader, "isDeniedLocalNotification",
+//                    AppOpsManager.class, Notification.class, int.class, String.class, XC_MethodReplacement.returnConstant(false));
+//        }
     }
 }
