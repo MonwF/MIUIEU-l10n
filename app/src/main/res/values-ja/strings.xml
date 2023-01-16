@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name" translatable="false">MiuiEuFix</string>
+	<string name="app_about">このアプリについて</string>
+	<string name="about_version">バージョン %1$s</string>
+	<string name="about_dev">by MonwF</string>
+	<string name="about_dynamic">一般的なModの有効化・無効化にはソフトリブートが必要ですが、⟲の付いた項目はデフォルトからカスタム値に変更後に1回ソフトリブートを行なうだけでその後の設定が適用されるようになります。</string>
+	<string name="about_unsupported">⨯のマークが付いた項目は使用中のデバイスでは非対応です。</string>
+	<string name="title_activity_main" translatable="false">@string/app_name</string>
+
+	<string name="menu_update">アップデート</string>
+
+	<string name="mods">Mod</string>
+
+	<string name="enable_mod">Modを有効化</string>
+
+	<string name="dummy" translatable="false" />
+</resources>
