@@ -7,7 +7,7 @@
 	<string name="about_unsupported">⨯のマークが付いた項目は使用中のデバイスでは非対応です。</string>
 	<string name="title_activity_main" translatable="false">@string/app_name</string>
 
-	<string name="menu_update">アップデート</string>
+	<string name="menu_update">更新</string>
 
 	<string name="mods">Mod</string>
 
