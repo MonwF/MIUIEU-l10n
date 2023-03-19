@@ -12,5 +12,7 @@
 		<item>com.miui.contentextension</item>
 		<item>com.android.incallui</item>
 		<item>com.android.settings</item>
+		<item>com.android.phone</item>
+		<item>com.miui.player</item>
 	</string-array>
 </resources>

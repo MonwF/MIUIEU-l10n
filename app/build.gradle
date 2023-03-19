@@ -15,14 +15,14 @@ android {
             v2SigningEnabled true
         }
     }
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "name.monwf.miuil10n"
         minSdkVersion 31
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 32
-        versionCode 7
-        versionName "1.1.0"
+        targetSdkVersion 33
+        versionCode 8
+        versionName "1.1.1"
         signingConfig signingConfigs.dev
         //resConfigs 'ru-rRU', 'uk-rUK', 'zh-rCN', 'pt-rBR', 'de', 'es', 'it', 'tr';
     }
